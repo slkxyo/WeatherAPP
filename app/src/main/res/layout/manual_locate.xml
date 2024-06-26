@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".Manual_locate">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="0dp"
+            android:hint="请输入所在地"
+            android:textSize="18sp"
+            android:gravity="center_horizontal"
+            android:layout_height="match_parent"
+            android:layout_weight="7"/>
+        <Button
+            android:id="@+id/bt_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="搜索"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <TextView
+
+            android:id="@+id/tv_item0"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:textSize="18sp"
+            android:layout_height="50dp"/>
+        <TextView
+            android:text=""
+            android:id="@+id/tv_item1"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:textSize="18sp"
+            android:layout_height="50dp"/>
+        <TextView
+            android:text=""
+            android:id="@+id/tv_item2"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:textSize="18sp"
+            android:layout_height="50dp"/>
+        <TextView
+            android:id="@+id/tv_item3"
+            android:gravity="center"
+            android:text=""
+            android:layout_width="match_parent"
+            android:textSize="18sp"
+            android:layout_height="50dp"/>
+        <TextView
+            android:id="@+id/tv_item4"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:textSize="18sp"
+            android:text=""
+            android:layout_height="50dp"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

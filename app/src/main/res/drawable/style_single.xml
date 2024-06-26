@@ -1,0 +1,13 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 设置背景色 -->
+    <solid android:color="#dbe2ef" /> <!-- 例如白色背景 -->
+<!--    <solid android:color="#c9d6df" /> &lt;!&ndash; 例如白色背景 &ndash;&gt;-->
+
+    <!-- 设置边框 -->
+    <stroke
+        android:width="2dp"
+        android:color="#fff" /> <!-- 边框颜色，例如红色 -->
+
+    <!-- 可选：设置圆角 -->
+    <corners android:radius="20dp" /> <!-- 圆角半径 -->
+</shape>

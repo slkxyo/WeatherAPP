@@ -1,0 +1,100 @@
+package com.example.weatherapp;
+
+import android.os.Bundle;
+import android.util.Log;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
+
+
+public class MainActivity extends AppCompatActivity {
+    private double x,y;
+
+    //声明AMapLocationClient类对象
+    public AMapLocationClient mLocationClient = null;
+    //声明定位回调监听器
+    public AMapLocationListener mLocationListener = new AMapLocationListener() {
+        @Override
+        public void onLocationChanged(AMapLocation amapLocation) {
+
+            if (amapLocation != null) {
+                if (amapLocation.getErrorCode() == 0) {
+                //可在其中解析amapLocation获取相应内容。
+                    x = amapLocation.getLatitude();//获取纬度
+                    y = amapLocation.getLongitude();//获取经度
+                }else {
+                    //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
+                    Log.e("AmapError","location Error, ErrCode:"
+                            + amapLocation.getErrorCode() + ", errInfo:"
+                            + amapLocation.getErrorInfo());
+                }
+            }
+        }
+    };
+
+    //声明AMapLocationClientOption对象
+    public AMapLocationClientOption mLocationOption = null;
+
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_main);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        //初始化定位
+        try {
+            mLocationClient = new AMapLocationClient(getApplicationContext());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        //设置定位回调监听
+        mLocationClient.setLocationListener(mLocationListener);
+
+
+        //初始化AMapLocationClientOption对象
+        mLocationOption = new AMapLocationClientOption();
+
+        AMapLocationClientOption option = new AMapLocationClientOption();
+        /**
+         * 设置定位场景，目前支持三种场景（签到、出行、运动，默认无场景）
+         */
+        option.setLocationPurpose(AMapLocationClientOption.AMapLocationPurpose.SignIn);
+        if(null != mLocationClient){
+            mLocationClient.setLocationOption(option);
+            //设置场景模式后最好调用一次stop，再调用start以保证场景模式生效
+            mLocationClient.stopLocation();
+            mLocationClient.startLocation();
+        }
+
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        mLocationOption.setNeedAddress(true);
+
+        //给定位客户端对象设置定位参数
+        mLocationClient.setLocationOption(mLocationOption);
+        //启动定位
+        mLocationClient.startLocation();
+
+        Log.v("MyTag",String.format("X:%f  Y:%f",x,y));
+        mLocationClient.stopLocation();//停止定位后，本地定位服务并不会被销毁
+        mLocationClient.onDestroy();//销毁定位客户端，同时销毁本地定位服务。
+    }
+    private void locate(){
+
+    }
+}
